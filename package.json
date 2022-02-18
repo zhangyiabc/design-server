@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -x npm run serve",
+    "start": "nodemon index",
+    "serve": "node --inspect index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ali-oss": "^6.16.0",
+    "connect-history-api-fallback": "^1.6.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.3.0",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "path-to-regexp": "^6.2.0",
+    "sequelize": "^6.12.5",
+    "socket.io": "^4.4.1",
+    "svg-captcha": "^1.4.0",
+    "validate.js": "^0.13.1"
+  }
+}
