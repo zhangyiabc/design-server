@@ -14,7 +14,7 @@ router.post('/login', async (req, res) => {
   if (result.code == '200') {
     // 发放jwt
     let id = result.data.id
-    jwt.publish(res, 3600 * 24 * 1000, { id })
+    jwt.publish(res, 3600 * 24 * 1000, { id,type:"user" })
   }
   // 建立socket连接
   // 将这个socket放入socket数组
@@ -53,6 +53,12 @@ router.put('/', async (req, res) => {
 router.get('/', async (req, res) => {
   const result = await getAllUsers(req.query)
   handleSend(result, res)
+})
+
+// 根据token获取用户信息
+router.get('/whoami',async (req,res) => {
+  const result = await getUserDetail(req.userId)
+  handleSend(result,res)
 })
 
 router.get('/order', async (req, res) => {
