@@ -24,12 +24,13 @@ exports.verify = (req) => {
   token = req.cookies[cookieKey] || null;
   if (!token) {
     token = req.headers.authorization;
+    // console.log('27',req.headers.authorization)
     if (!token) {
       return null;
     }
 
     //格式authorization：bearer token
-    token = token.split(" ")[1];
+    token = token.split(" ");
     token = token.length == 1 ? token[0] : token[1];
   }
   // 取出来后进行判断

@@ -222,10 +222,41 @@ const login = async (username, password) => {
 
 }
 
+/**
+ * 根据管理员用户获取管理员信息
+ * @param {*} adminId 
+ */
+const getAdminDetail = async (adminId) => {
+  if(!adminId){
+    return {
+      code:'400',
+      msg:"Admin - services 参数缺失"
+    }
+  }
+  const findRes = await Admin.findOne({
+    attributes:['id','username','author'],
+    where:{
+      id:+adminId
+    }
+  })
+  if (!findRes) {
+    return {
+      code: '400',
+      msg: "请检查请求参数",
+    }
+  }
+  return {
+    code: '200',
+    data: findRes.toJSON(),
+
+  }
+}
+
 module.exports = {
   login,
   addAdmin,
   deleteAdmin,
   updateAdmin,
+  getAdminDetail,
   getAllAdmin
 }

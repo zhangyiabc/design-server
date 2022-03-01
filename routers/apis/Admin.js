@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { login } = require('../../services/modules/Admin')
+const { login, getAdminDetail } = require('../../services/modules/Admin')
 const { handleSend } = require('../../utils/resultMessage')
 const jwt = require('../jwt/index')
 const { hasProperty } = require('../../utils/hasProperty')
@@ -12,9 +12,14 @@ router.post('/login', async (req, res) => {
   if (result.code == '200') {
     // 发放jwt
     let id = result.data.id
-    jwt.publish(res, 3600 * 24 * 1000, { id })
+    jwt.publish(res, 3600 * 24 * 1000, { id,type:"admin" })
   }
   handleSend(result, res)
+})
+
+router.get('/whoami',async (req,res) => {
+  const result = await getAdminDetail(req.adminId)
+  handleSend(result,res)
 })
 
 module.exports = router

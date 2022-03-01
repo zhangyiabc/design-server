@@ -21,7 +21,9 @@ module.exports = (req, res, next) => {
   let token = req.cookies.token || "";
   // console.log(token);
   if (!token) {
-    token = req.headers.Authorization || "";
+   
+    token = req.headers.authorization || "";
+    // console.log(token)
   }
   if (!token) {
     // 没有认证
@@ -33,7 +35,13 @@ module.exports = (req, res, next) => {
   const result = jwt.verify(req);
   if (result) {
     // 认证通过
-    req.userId = result.id;
+    // console.log('36',result.type)
+    // req.userId = result.id;
+    if(result.type == 'user'){
+      req.userId = result.id
+    }else{
+      req.adminId = result.id
+    }
     next();
   } else {
     handlerNoToken(req, res, next);
