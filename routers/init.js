@@ -39,6 +39,8 @@ app.use(
   })
 )
 
+
+
 // 处理cookie的中间件
 app.use(cookieParser())
 
@@ -55,6 +57,40 @@ app.use(express.json());
 
 // 处理记录api日志的中间件
 app.use(require("./middleware/apiLoggerMiddleware"));
+
+var nodemailer=require("nodemailer");
+var transporter = nodemailer.createTransport({//邮件传输
+  host: "smtp.qq.com", //qq smtp服务器地址
+  secureConnection: false, //是否使用安全连接，对https协议的
+  port: 465, //qq邮件服务所占用的端口
+  auth: {
+    user: "1120768996@qq.com",//开启SMTP的邮箱，有用发送邮件
+    pass: "znhrtqoyvqeifeie"//授权码
+  }
+});
+
+app.post("/getlma", function (req, res) { //调用指定的邮箱给用户发送邮件
+  var code = "";
+  while (code.length < 5) {
+    code += Math.floor(Math.random() * 10);
+  }
+  var mailOption = {
+    from: "1120768996@qq.com",
+    to: req.body.eml,//收件人
+    subject: "张毅首次使用nodejs使用邮箱发送验证码",//纯文本主题
+    html: "<h1>欢迎注册，张毅首次使用nodejs发送验证码，您本次的注册验证码为：" + code + "</h1>" // 邮件内容
+  };
+
+  transporter.sendMail(mailOption, function (error, info) {
+    console.log(info)
+    if (error) {
+      res.send("1");
+    } else {
+      res.send("2");
+      console.info("Message send" + code);
+    }
+  })
+})
 
 // 验证码
 app.use('/api/captcha', require('./apis/captcha'))

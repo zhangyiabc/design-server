@@ -1,14 +1,15 @@
 // 处理退出登录的socket
 const { changeOnlineStatus } = require('../../services/modules/User')
-let user = require('../socketList')
+let {users} = require('../socketList')
 
 module.exports = function (socket) {
   // data是一个对象{username：userId}
   socket.on('loginOut', (data) => {
     // 移除users列表
-    user = user.filter(it => it.username != data.username)
+    users = users.filter(it => it.userId != data.userId)
+    console.log(users)
     // 更改登录状态
-    changeOnlineStatus(data.username, 'no').then(() => {
+    changeOnlineStatus(data.userId, 'no').then(() => {
       socket.emit('adminGetUser', data)
     })
     

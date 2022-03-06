@@ -1,3 +1,7 @@
 
 let users = []
-module.exports  = users
+let curUser
+module.exports  = {
+  users,
+  curUser
+}

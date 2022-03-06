@@ -19,6 +19,7 @@
     "log4js": "^6.3.0",
     "multer": "^1.4.4",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.2",
     "path-to-regexp": "^6.2.0",
     "sequelize": "^6.12.5",
     "socket.io": "^4.4.1",

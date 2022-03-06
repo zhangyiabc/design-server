@@ -37,7 +37,7 @@ const login = async (username, password) => {
   })
   if (result && result.password === password) {
     result = result.toJSON()
-    await changeOnlineStatus(result.id, 'yes')
+    // await changeOnlineStatus(result.id, 'yes')
     return {
       code: '200',
       data: result

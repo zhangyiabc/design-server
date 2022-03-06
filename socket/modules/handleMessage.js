@@ -1,5 +1,5 @@
 const { hasProperty } = require('../../utils/hasProperty')
-const users = require('../socketList')
+const { users } = require('../socketList')
 
 module.exports = function (socket) {
   // data是一个对象{from:操作人Id,to:目标人id}
