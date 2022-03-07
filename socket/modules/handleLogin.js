@@ -1,4 +1,4 @@
-let {users} = require('../socketList')
+let { users } = require('../socketList')
 const { changeOnlineStatus } = require('../../services/modules/User')
 // 判断数组中有没有这一项
 /**
@@ -27,11 +27,12 @@ module.exports = function (socket) {
         userId: data.userId,
         socket
       })
-      await changeOnlineStatus(data.userId, 'yes')
-      console.log(users)
-      // 告诉管理员有用户登录了，请重新调接口
-      socket.emit('adminGetUser', data)
     }
-
+    await changeOnlineStatus(data.userId, 'yes')
+    // 告诉管理员有用户登录了，请重新调接口
+    socket.emit('adminUpdateUser', {
+      type: 'in',
+      userId: data.userId
+    })
   })
 }
