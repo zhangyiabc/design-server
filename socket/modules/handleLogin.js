@@ -29,8 +29,10 @@ module.exports = function (socket) {
       })
     }
     await changeOnlineStatus(data.userId, 'yes')
+    console.log('adminUpdateUser')
+
     // 告诉管理员有用户登录了，请重新调接口
-    socket.emit('adminUpdateUser', {
+    socket.broadcast.emit('adminUpdateUser', {
       type: 'in',
       userId: data.userId
     })

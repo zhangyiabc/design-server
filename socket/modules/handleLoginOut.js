@@ -13,7 +13,7 @@ module.exports = function (socket) {
     }
     // 更改登录状态
     changeOnlineStatus(data.userId, 'no').then(() => {
-      socket.emit('adminUpdateUser', {
+      socket.broadcast.emit('adminUpdateUser', {
         type: 'out',
         userId: data.userId
       })

@@ -11,7 +11,7 @@ module.exports = function (socket) {
       }
     }
     await changeOnlineStatus(disConnUserId, 'no')
-    socket.emit('adminUpdateUser', {
+    socket.broadcast.emit('adminUpdateUser', {
       type: 'out',
       userId: disConnUserId
     })
