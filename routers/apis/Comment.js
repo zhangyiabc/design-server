@@ -18,7 +18,10 @@ router.post('/', async (req, res) => {
   if (!hasProperty(req.body)) {
     handleSend({ code: 400, msg: "参数缺少" }, res)
   }
-  const result = await addComment(req.body)
+  const result = await addComment({
+    ...req.body,
+    UserId: req.userId
+  })
   handleSend(result, res)
 })
 

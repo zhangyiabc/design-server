@@ -200,7 +200,7 @@ const deleteComment = async (deleteObj) => {
   const articleObj = obj.toJSON()
   let articleUserId, deleteRes;
   if (articleObj) {
-    articleUserId = articleObj.data.UserId
+    articleUserId = articleObj.UserId
   }
   if (temp.type == 'art' && articleUserId == userId) {
     // 作者删除文章下面的任意评论

@@ -89,7 +89,7 @@ const getAllLikeForUser = async ({ page = 1, size = 10, userId } = {}) => {
       // 关联文章的标题
       {
         model: Article,
-        attributes: ['title']
+        attributes: ['title','cover']
       }
     ]
   })
@@ -192,12 +192,17 @@ const handleLike = async (userId, articleId) => {
       data: result
     }
   } else {
-    const delRes = await handleCancelLike(userId, articleId)
-    if (delRes.code = '200') {
-      return {
-        code: "200",
-        msg: "取消点赞成功"
-      }
+    // const delRes = await handleCancelLike(userId, articleId)
+    // if (delRes.code = '200') {
+    //   return {
+    //     code: "200",
+    //     msg: "取消点赞成功"
+    //   }
+    // }
+    return {
+      code: '400',
+      msg: "重复点赞",
+      data: []
     }
   }
 }
