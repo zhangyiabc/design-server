@@ -178,7 +178,7 @@ const getAllNotice = async ({ page = 1, size = 10, status = 'all', targetAuthorI
   }
   const res = await UserNotice.findAndCountAll({
     attributes: ['id', 'type', 'targetId', 'targetType', 'status', 'UserId', 'createdAt'],
-    offset: (page - 1) * size,
+    offset: (page - 1) * +size,
     limit: +size,
     where: options,
     include: [

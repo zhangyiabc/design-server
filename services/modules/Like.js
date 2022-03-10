@@ -19,7 +19,7 @@ const getAllLikeForArticle = async ({ page = 1, size = 10, articleId } = {}) => 
   }
   const res = await Like.findAndCountAll({
     attributes: ['id', 'UserId', 'createdAt', 'ArticleId'],
-    offset: (page - 1) * size,
+    offset: (page - 1) * +size,
     limit: +size,
     where: {
       ArticleId: articleId
@@ -68,7 +68,7 @@ const getAllLikeForUser = async ({ page = 1, size = 10, userId } = {}) => {
   }
   const res = await Like.findAndCountAll({
     attributes: ['id', 'UserId', 'createdAt', 'ArticleId'],
-    offset: (page - 1) * size,
+    offset: (page - 1) * +size,
     limit: +size,
     where: {
       UserId: userId

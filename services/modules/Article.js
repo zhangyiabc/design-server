@@ -269,7 +269,7 @@ const getAllArticles = async ({
   }
   const res = await Article.findAndCountAll({
     attributes: ['id', 'cover', 'title', 'content', 'abstract', 'viewcount', 'review', 'UserId', 'createdAt', 'LabelId'],
-    offset: (page - 1) * size,
+    offset: (page - 1) * +size,
     limit: +size,
     where: pick(options, 'UserId', 'title', 'review', 'LabelId'),
     include: [

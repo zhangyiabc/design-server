@@ -24,7 +24,7 @@ const getAllComment = async ({ page = 1, size = 10, articleId } = {}) => {
   const res = await Comment.findAndCountAll({
     attributes: ['id', 'UserId', 'objectId', 'content', 'type', 'createdAt'],
     limit: +size,
-    offset: (page - 1) * size,
+    offset: (page - 1) * +size,
     where: {
       objectId: articleId
     },

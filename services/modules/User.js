@@ -179,7 +179,7 @@ const getAllUsers = async ({
   const res = await User.findAndCountAll(
     {
       attributes: ['id', 'username', 'count', 'author', 'online', 'createdAt'],
-      offset: (page - 1) * size,
+      offset: (page - 1) * +size,
       limit: +size,
       where: pick(options, 'online', 'author'),
       include: [

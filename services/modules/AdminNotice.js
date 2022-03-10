@@ -117,7 +117,7 @@ const getAllAdminNotice = async ({ page = 1, size = 10, status = 'all', userId =
   }
   const res = await AdminNotice.findAndCountAll({
     attributes: ['id', 'createdAt', 'UserId', 'content', 'status'],
-    offset: (page - 1) * size,
+    offset: (page - 1) * +size,
     limit: +size,
     where: option,
     order: [
