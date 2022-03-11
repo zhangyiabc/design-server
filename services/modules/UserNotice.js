@@ -222,10 +222,14 @@ const findHappenDetail = async (arr) => {
           id: +item.targetId
         }
       })
-      obj = obj.toJSON()
+      if(obj){
+        obj = obj.toJSON()
+        happenArticleId = item.targetId;
+        happenInfo = obj.title
 
-      happenArticleId = item.targetId;
-      happenInfo = obj.title
+      }else{
+        return
+      }
     } else if (item.targetType == 'comment') {
       // 消息发生在评论上，需要根据评论id(targetId)查询出文章信息（标题），还需要把评论内容查询出来
       let obj = await Comment.findOne({
@@ -245,13 +249,25 @@ const findHappenDetail = async (arr) => {
       happenInfo
     }
   }))
+  return result.filter(it => Boolean(it))
+}
 
-  return result
+const deleteNotice = async (options) => {
+  // const {UserId,type,targetId,targetType} = options
+  const res = await UserNotice.destroy({
+    where:options
+  })
+  if (Array.isArray(res)) {
+    return res[0] ? { code: '200', msg: '删除成功', data: "删除成功" } : { code: "400", msg: "删除失败" };
+  } else {
+    return res ? { code: '200', msg: '删除成功', data: "删除成功" } : { code: "400", msg: "删除失败" };
+  }
+
 }
 
 module.exports = {
   getUserNoticeDetail,
   getAllNotice,
-
+  deleteNotice,
   addUserNotice
 }

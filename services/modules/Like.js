@@ -3,7 +3,7 @@ const Like = require('../../models/modules/Like')
 const User = require('../../models/modules/User')
 const UserInfo = require('../../models/modules/UserInfo')
 const Article = require('../../models/modules/Article')
-const { addUserNotice } = require('./UserNotice')
+const { addUserNotice, deleteNotice } = require('./UserNotice')
 const validate = require('validate.js')
 /**
  * 获取某篇文章下所有赞 
@@ -89,7 +89,7 @@ const getAllLikeForUser = async ({ page = 1, size = 10, userId } = {}) => {
       // 关联文章的标题
       {
         model: Article,
-        attributes: ['title','cover']
+        attributes: ['title', 'cover']
       }
     ]
   })
@@ -226,6 +226,12 @@ const handleCancelLike = async (userId, articleId) => {
       ArticleId: articleId
     }
   })
+  await deleteNotice({
+    type: 'like',
+    UserId: +userId,
+    targetId: +articleId,
+  })
+  // 删除消息表中一条消息
   if (Array.isArray(res)) {
     return res[0] ? { code: '200', msg: '操作成功', data: "操作成功" } : { code: "400", msg: "操作失败" };
   } else {

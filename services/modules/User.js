@@ -8,7 +8,7 @@ const Op = Sequelize.Op;
 const UserInfo = require('../../models/modules/UserInfo');
 const { hasProperty } = require('../../utils/hasProperty');
 const { addAdminNotice } = require('./AdminNotice');
-const {sequelize} = require('../../models/db')
+const { sequelize } = require('../../models/db')
 // 更改用户在线状态(使用频率较高)
 // 目前不知道需不需要返回东西
 const changeOnlineStatus = async (userId, status) => {
@@ -118,8 +118,18 @@ const addUser = async (userObj) => {
         msg: error
       }
     }
+    function randomString(e) {
+      e = e || 32;
+      var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
+        a = t.length,
+        n = "";
+      for (i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a));
+      return n
+    }
     // 此时需要新添加一条为空的用户资料数据
-    const info = await addUserInfo()
+    const info = await addUserInfo({
+      avatar: "https://api.multiavatar.com/" + randomString(6)
+    })
     userObj.UserInfoId = info.id
     const ins = User.build(userObj)
     const res = await ins.save()
@@ -372,11 +382,23 @@ const addCount = async (id) => {
 }
 
 const orderUser = async (userObj) => {
+  if (!userObj.size) {
+    return {
+      code: '400',
+      msg: "参数缺失"
+    }
+  }
   const res = await User.findAll({
     order: [
       ['count', 'DESC'],
     ],
-    limit: +userObj.size
+    limit: +userObj.size,
+    include:[
+      {
+        model: UserInfo,
+        attributes: ['avatar', 'autograph'],
+      }
+    ]
   })
   return {
     code: "200",
