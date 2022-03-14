@@ -49,6 +49,9 @@ router.post('/', upload.single('file'), async (req, res) => {
       msg: "success",
       data: result.url
     }, res)
+    fs.unlink(req.file.path, () => {
+      // console.log("删除成功")
+    })
   } else {
     // 上传失败
     handleSend({

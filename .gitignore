@@ -7,7 +7,7 @@ yarn-error.log*
 package-lock.json
 yarn.lock
 tests/**/coverage/
-public/upload
+public/upload/*
 
 # Editor directories and files
 .idea
