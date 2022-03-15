@@ -272,6 +272,9 @@ const getAllArticles = async ({
     offset: (page - 1) * +size,
     limit: +size,
     where: pick(options, 'UserId', 'title', 'review', 'LabelId'),
+    order: [
+      ['createdAt', 'DESC'],
+    ],
     include: [
       {
         model: User,

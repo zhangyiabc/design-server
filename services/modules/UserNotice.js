@@ -181,6 +181,9 @@ const getAllNotice = async ({ page = 1, size = 10, status = 'all', targetAuthorI
     offset: (page - 1) * +size,
     limit: +size,
     where: options,
+    order: [
+      ['createdAt', 'DESC'],
+    ],
     include: [
       {
         model: User,

@@ -28,6 +28,9 @@ const getAllComment = async ({ page = 1, size = 10, articleId } = {}) => {
     where: {
       objectId: articleId
     },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
     include: [
       {
         model: User,

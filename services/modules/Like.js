@@ -24,6 +24,9 @@ const getAllLikeForArticle = async ({ page = 1, size = 10, articleId } = {}) => 
     where: {
       ArticleId: articleId
     },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
     include: [
       // 关联用户的昵称、头像
       {
@@ -73,6 +76,9 @@ const getAllLikeForUser = async ({ page = 1, size = 10, userId } = {}) => {
     where: {
       UserId: userId
     },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
     include: [
       // 关联用户的昵称、头像
       {
